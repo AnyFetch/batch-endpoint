@@ -67,6 +67,21 @@ describe('Restify batch endpoint', function() {
           })
           .end(done);
       });
+
+      it("should forward errors", function(done) {
+        var pages = ['/non/existing/route', '/routes/1'];
+        var url = batchBuilder(pages);
+
+        request(server)
+          .get(url)
+          .expect(404)
+          .expect(function(res) {
+            res.body.should.have.keys(pages.concat(['errored']));
+            res.body.should.have.property('errored', '/non/existing/route');
+            res.body['/non/existing/route'].should.have.property('code', 'ResourceNotFound');
+          })
+          .end(done);
+      });
     });
   });
 });
