@@ -15,7 +15,7 @@
   "keywords": [
     "batch",
     "bulk",
-    "restify",
+    "restify"
   ],
   "dependencies": {},
   "devDependencies": {
