@@ -1,0 +1,29 @@
+{
+  "name": "batch-endpoint",
+  "version": "0.0.1",
+  "description": "A restify plugin for batch-querying `GET` endpoints.",
+  "author": "Matthieu Bacconnier <matthieu.bacconnier@papiel.fr>",
+  "scripts": {
+    "test": "NODE_ENV=test mocha -R spec test/",
+    "coverage": "NODE_ENV=test istanbul cover node_modules/mocha/bin/_mocha -- -R spec test/"
+  },
+  "main": "./lib",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Papiel/batch-endpoint/"
+  },
+  "keywords": [
+    "batch",
+    "bulk",
+    "restify",
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "1.17.x",
+    "should": "3.1.x"
+  },
+  "licence": "WTFPL",
+  "engines": {
+    "node": ">=0.10"
+  }
+}
