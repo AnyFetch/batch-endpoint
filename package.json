@@ -17,8 +17,11 @@
     "bulk",
     "restify"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "supertest": "~0.11.0"
+  },
   "devDependencies": {
+    "restify": "2.7.x",
     "mocha": "1.17.x",
     "should": "3.1.x"
   },
