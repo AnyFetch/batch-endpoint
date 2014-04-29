@@ -1,6 +1,6 @@
 {
   "name": "batch-endpoint",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A restify plugin for batch-querying `GET` endpoints.",
   "author": "Matthieu Bacconnier <matthieu.bacconnier@papiel.fr>",
   "scripts": {
