@@ -25,6 +25,11 @@ var batchBuilder = function(pages, url) {
 
 describe('Restify batch endpoint', function() {
   var server;
+  var options = {
+    maxPages: 4,
+    forwardAuthorizationHeader: true
+  };
+
   before(function createTestServer() {
     server = restify.createServer();
     server.use(restify.queryParser());
@@ -32,8 +37,12 @@ describe('Restify batch endpoint', function() {
     for(var i = 1; i <= 5; i += 1) {
       server.get('/routes/' + i, mockEndpointGenerator(i));
     }
+    server.get('/authorization/echo', function(req, res, next) {
+      res.send(req.headers.authorization);
+      next();
+    });
 
-    server.get('/batch', batchEndpointGenerator(server));
+    server.get('/batch', batchEndpointGenerator(server, options));
   });
 
   describe("GET /batch", function() {
@@ -92,6 +101,30 @@ describe('Restify batch endpoint', function() {
           .get(url)
           .expect(409)
           .expect(/starting with \//)
+          .end(done);
+      });
+
+      it("should fail without pages parameter", function(done) {
+        var pages = [];
+        var url = batchBuilder(pages);
+
+        request(server)
+          .get(url)
+          .expect(409)
+          .expect(/at least one page/)
+          .end(done);
+      });
+
+      it("should fail when pages is over maxPages", function(done) {
+        var pages = ['/routes/1', '/routes/2', '/routes/3', '/routes/4', '/routes/5'];
+        pages.length.should.be.above(options.maxPages);
+
+        var url = batchBuilder(pages);
+
+        request(server)
+          .get(url)
+          .expect(409)
+          .expect(/more than [0-9]+ url/)
           .end(done);
       });
     });
