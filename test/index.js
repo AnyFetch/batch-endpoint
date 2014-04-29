@@ -37,8 +37,7 @@ describe('Restify batch endpoint', function() {
   });
 
   describe("GET /batch", function() {
-
-    describe.only("Default option call", function() {
+    describe("Valid calls", function() {
       it("should batch-call with a single url", function(done) {
         var pages = ['/routes/1'];
         var url = batchBuilder(pages);
@@ -67,7 +66,9 @@ describe('Restify batch endpoint', function() {
           })
           .end(done);
       });
+    });
 
+    describe("Errored calls", function() {
       it("should forward errors", function(done) {
         var pages = ['/non/existing/route', '/routes/1'];
         var url = batchBuilder(pages);
@@ -80,6 +81,17 @@ describe('Restify batch endpoint', function() {
             res.body.should.have.property('errored', '/non/existing/route');
             res.body['/non/existing/route'].should.have.property('code', 'ResourceNotFound');
           })
+          .end(done);
+      });
+
+      it("should fail on url without forward slash", function(done) {
+        var pages = ['url_without_forward_slash'];
+        var url = batchBuilder(pages);
+
+        request(server)
+          .get(url)
+          .expect(409)
+          .expect(/starting with \//)
           .end(done);
       });
     });
