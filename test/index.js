@@ -75,6 +75,21 @@ describe('Restify batch endpoint', function() {
           })
           .end(done);
       });
+
+      it("should forward authorization header", function(done) {
+        var pages = ['/authorization/echo'];
+        var url = batchBuilder(pages);
+
+        request(server)
+          .get(url)
+          .set('Authorization', 'header-value')
+          .expect(200)
+          .expect(function(res) {
+            res.body.should.have.keys(pages);
+            res.body["/authorization/echo"].should.eql('header-value');
+          })
+          .end(done);
+      });
     });
 
     describe("Errored calls", function() {
