@@ -10,7 +10,7 @@
   "main": "./lib",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Papiel/batch-endpoint/"
+    "url": "https://github.com/AnyFetch/batch-endpoint/"
   },
   "keywords": [
     "batch",
