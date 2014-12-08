@@ -56,7 +56,7 @@ describe('Restify batch endpoint', function() {
           .expect(200)
           .expect(function(res) {
             res.body.should.have.keys(pages);
-            res.body["/routes/1"].should.have.property("message", "1");
+            res.body["/routes/1"].should.have.property("message", 1);
           })
           .end(done);
       });
@@ -70,8 +70,8 @@ describe('Restify batch endpoint', function() {
           .expect(200)
           .expect(function(res) {
             res.body.should.have.keys(pages);
-            res.body["/routes/1"].should.have.property("message", "1");
-            res.body["/routes/2"].should.have.property("message", "2");
+            res.body["/routes/1"].should.have.property("message", 1);
+            res.body["/routes/2"].should.have.property("message", 2);
           })
           .end(done);
       });
