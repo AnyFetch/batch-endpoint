@@ -23,8 +23,8 @@
     "restify": "2.8.x"
   },
   "devDependencies": {
-    "mocha": "2.0.x",
-    "should": "4.3.x"
+    "mocha": "2.1.x",
+    "should": "5.0.x"
   },
   "licence": "WTFPL",
   "engines": {
